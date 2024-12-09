@@ -10,9 +10,10 @@ class ArcherContract{
 
 class Archer : ArcherContract{
     private:
-        string name;
         int age;
         int accuracy;
+    protected:
+        string name;
     public:
         Archer(string name, int age, int accuracy) // Constructor
         : name(name), age(age), accuracy(accuracy) {}
@@ -38,6 +39,28 @@ class Archer : ArcherContract{
                 cout << "Sorry, you're too young\n";
             }
         }
+
+        virtual void Shooting(){
+            cout << name << " is shooting\n";
+        }
+};
+
+class Student: public Archer{
+    public:
+        string master;
+
+        Student(string name, int age, int accuracy, string master)
+        :Archer(name, age, accuracy) {
+            master = master;
+        }
+
+        void PracticeStance(){
+            cout << name << " Practicing stance\n";
+        }
+
+        void Shooting(){
+            cout << name << " is shooting\n";
+        }
 };
 
 int main(){
@@ -45,6 +68,16 @@ int main(){
     Archer rookie = Archer("Obi Wan Kenobi", 19, 17);
 
     legend.SignContract(); // Abstraction, they're in if old enough
+
+    Student freshman = Student("Oski Anoski", 9, 44, "Master Vaughan");
+
+    freshman.PracticeStance(); // Inheritance, student can practice stance
+
+    freshman.SignContract();
+
+    Archer* OskiAnoski = &freshman;
+
+    OskiAnoski->Shooting(); // Polymorphism, Robin is a student but can still shoot;
 
     return 0;
 }
